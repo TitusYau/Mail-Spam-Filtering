@@ -80,9 +80,9 @@ np.save('enron_labels.npy',labels)
 
 #train_matrix = np.load('enron_features_matrix.npy');
 #labels = np.load('enron_labels.npy');
-print features_matrix.shape
-print labels.shape
-print sum(labels==0),sum(labels==1)
+print (features_matrix.shape)
+print (labels.shape)
+print (sum(labels==0),sum(labels==1))
 X_train, X_test, y_train, y_test = train_test_split(features_matrix, labels, test_size=0.40)
 
 ## Training models and its variants
@@ -96,6 +96,6 @@ model2.fit(X_train,y_train)
 result1 = model1.predict(X_test)
 result2 = model2.predict(X_test)
 
-print confusion_matrix(y_test, result1)
-print confusion_matrix(y_test, result2)
+print (confusion_matrix(y_test, result1))
+print (confusion_matrix(y_test, result2))
 

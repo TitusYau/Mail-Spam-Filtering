@@ -13,7 +13,7 @@ from sklearn.svm import LinearSVC
 from sklearn.metrics import confusion_matrix
 
 def make_Dictionary(train_dir):
-    emails = [os.path.join(train_dir,f) for f in os.listdir(train_dir)]    
+    emails = [os.path.join(train_dir,f) for f in os.listdir(train_dir)]  
     all_words = []       
     for mail in emails:    
         with open(mail) as m:
@@ -23,8 +23,7 @@ def make_Dictionary(train_dir):
                     all_words += words
     
     dictionary = Counter(all_words)
-    
-    list_to_remove = dictionary.keys()
+    list_to_remove = list(dictionary.keys())
     for item in list_to_remove:
         if item.isalpha() == False: 
             del dictionary[item]
@@ -52,8 +51,7 @@ def extract_features(mail_dir):
     return features_matrix
     
 # Create a dictionary of words with its frequency
-
-train_dir = 'lingspam_public\\lemm_stop\\train-mails'
+train_dir = 'ling-spam/train-mails'
 dictionary = make_Dictionary(train_dir)
 
 # Prepare feature vectors per training mail and its labels
@@ -72,7 +70,7 @@ model2.fit(train_matrix,train_labels)
 
 # Test the unseen mails for Spam
 
-test_dir = 'lingspam_public\\lemm_stop\\test-mails'
+test_dir = 'ling-spam/test-mails'
 test_matrix = extract_features(test_dir)
 test_labels = np.zeros(260)
 test_labels[130:260] = 1
@@ -80,7 +78,7 @@ test_labels[130:260] = 1
 result1 = model1.predict(test_matrix)
 result2 = model2.predict(test_matrix)
 
-print confusion_matrix(test_labels,result1)
-print confusion_matrix(test_labels,result2)
+print(confusion_matrix(test_labels,result1))
+print(confusion_matrix(test_labels,result2))
 
 
